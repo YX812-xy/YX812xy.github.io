@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钟瀚葳 | 个人设计作品集 - 创造从像素到材质的视觉表达</title>
+    
+    <!-- 引入 Google Fonts 高级无衬线与科技显示字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入 FontAwesome 图标库库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind CSS 颜色与字体自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            green: '#00FF87', // 荧光绿极客色
+                            lime: '#39FF14',
+                            darkBg: '#09090b', // 极暗夜黑
+                            cardBg: '#121214', // 卡片暗黑
+                            grayText: '#a1a1aa',
+                        }
+                    },
+                    boxShadow: {
+                        'glow-green': '0 0 15px rgba(0, 255, 135, 0.15)',
+                        'glow-green-lg': '0 0 30px rgba(0, 255, 135, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 隐藏滚动条，并定制精美极窄滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+        /* 磨砂玻璃特效备份 */
+        .glass-blur {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-brand-darkBg text-gray-100 font-sans antialiased overflow-x-hidden">
+
+    <!-- 1. 顶部导航栏 (固定透明磨砂) -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-brand-darkBg/80 glass-blur border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- LOGO 区 -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#hero" class="group flex items-center space-x-2 text-xl font-bold font-display tracking-wider">
+                        <span class="text-white">钟瀚葳</span>
+                        <span class="text-brand-green font-light">|</span>
+                        <span class="text-brand-green group-hover:text-white transition-colors duration-300">Hanwei</span>
+                    </a>
+                </div>
+                
+                <!-- PC端 导航项 -->
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-brand-grayText hover:text-brand-green transition-colors duration-200">关于我</a>
+                    <a href="#skills" class="text-brand-grayText hover:text-brand-green transition-colors duration-200">专业技能</a>
+                    <a href="#portfolio" class="text-brand-grayText hover:text-brand-green transition-colors duration-200">作品案例</a>
+                    <a href="#education" class="text-brand-grayText hover:text-brand-green transition-colors duration-200">教育荣誉</a>
+                    <a href="#contact" class="text-brand-grayText hover:text-brand-green transition-colors duration-200">联系方式</a>
+                </div>
+
+                <!-- 快速下载/交互组件 -->
+                <div class="hidden md:flex items-center">
+                    <a href="#contact" class="px-5 py-2 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green hover:text-brand-darkBg hover:border-brand-green text-sm font-semibold transition-all duration-300 shadow-glow-green">
+                        即刻洽谈 <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- 移动端 菜单按钮 -->
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-brand-grayText hover:text-white hover:bg-zinc-800 focus:outline-none transition-colors duration-200" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 移动端 导航菜单面版 -->
+        <div class="hidden md:hidden bg-brand-darkBg/95 glass-blur border-b border-white/5" id="mobile-menu">
+            <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3 text-center">
+                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium text-brand-grayText hover:text-brand-green hover:bg-zinc-900 transition-colors">关于我</a>
+                <a href="#skills" class="block px-3 py-3 rounded-md text-base font-medium text-brand-grayText hover:text-brand-green hover:bg-zinc-900 transition-colors">专业技能</a>
+                <a href="#portfolio" class="block px-3 py-3 rounded-md text-base font-medium text-brand-grayText hover:text-brand-green hover:bg-zinc-900 transition-colors">作品案例</a>
+                <a href="#education" class="block px-3 py-3 rounded-md text-base font-medium text-brand-grayText hover:text-brand-green hover:bg-zinc-900 transition-colors">教育荣誉</a>
+                <a href="#contact" class="block px-3 py-3 rounded-md text-base font-medium text-brand-grayText hover:text-brand-green hover:bg-zinc-900 transition-colors">联系方式</a>
+                <div class="pt-4 border-t border-zinc-800/60 flex justify-center">
+                    <a href="#contact" class="w-2/3 py-2.5 rounded-full bg-brand-green text-brand-darkBg text-sm font-bold shadow-glow-green">
+                        即刻洽谈
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- 2. 首屏 Hero 区 -->
+    <header id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- 背景炫光装饰线 (SVG 渐变) -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-brand-green/5 blur-[120px]"></div>
+            <div class="absolute top-[35%] right-[10%] w-[400px] h-[400px] rounded-full bg-purple-600/5 blur-[130px] animate-pulse"></div>
+            <div class="absolute bottom-[20%] left-[15%] w-[450px] h-[450px] rounded-full bg-cyan-500/5 blur-[140px]"></div>
+            <div class="absolute bottom-[10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[150px]"></div>
+            <!-- 网格虚线背景，突显设计师风格 -->
+            <div class="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:16px_16px] opacity-70"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-12">
+            <!-- 视觉胶囊徽章 -->
+            <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 mb-8 animate-fade-in">
+                <span class="flex h-2 w-2 rounded-full bg-brand-green animate-pulse"></span>
+                <span class="text-xs text-brand-grayText tracking-wide font-mono">AVAILABLE FOR FULL-TIME / PROJECT COOPERATION</span>
+            </div>
+
+            <!-- 主标题 -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold font-display tracking-tight text-white leading-tight mb-8">
+                钟瀚葳 <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-cyan-400 to-purple-500">|</span> <br class="sm:hidden">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-100 to-zinc-400">创造从像素到材质的视觉表达</span>
+            </h1>
+
+            <!-- 副标题 -->
+            <p class="max-w-3xl mx-auto text-lg sm:text-xl text-brand-grayText leading-relaxed mb-12">
+                平面设计师 / 电商视觉专家 / UI·UX 探索者 / 多媒体动态设计。<br class="hidden sm:inline">
+                精通数字视觉设计与线下高精印刷，保障创意100%无损落地。
+            </p>
+
+            <!-- 呼吁行动按钮 -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-green text-brand-darkBg font-bold hover:bg-brand-green/90 transition-all duration-300 transform hover:-translate-y-1 shadow-glow-green-lg text-center">
+                    查看我的作品 <i class="fa-solid fa-compass ml-1.5"></i>
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium hover:bg-zinc-800 transition-all duration-300 transform hover:-translate-y-1 text-center">
+                    联系我 <i class="fa-solid fa-envelope ml-1.5"></i>
+                </a>
+            </div>
+
+            <!-- 极简行业数据标签 -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-zinc-900 pt-10">
+                <div class="text-center">
+                    <div class="text-3xl font-bold font-display text-white">15%+</div>
+                    <div class="text-xs text-brand-grayText mt-1">电商主图点击率提升</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold font-display text-white">100%</div>
+                    <div class="text-xs text-brand-grayText mt-1">线下高精打样色彩还原</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold font-display text-white">30+</div>
+                    <div class="text-xs text-brand-grayText mt-1">商业推广项目落地</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold font-display text-white">2025</div>
+                    <div class="text-xs text-brand-grayText mt-1">荣获“工匠杯”设计奖</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 下滑指示器 -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-40">
+            <span class="text-xs tracking-widest font-mono text-zinc-500 mb-2">SCROLL DOWN</span>
+            <i class="fa-solid fa-chevron-down text-brand-green animate-bounce text-sm"></i>
+        </div>
+    </header>
+
+
+    <!-- 3. 关于我 & 技能标签 -->
+    <section id="about" class="py-24 border-t border-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- 侧边大标题 -->
+                <div class="lg:col-span-4">
+                    <div class="sticky top-28">
+                        <span class="text-sm font-mono text-brand-green uppercase tracking-widest font-semibold block mb-2">// ABOUT & PROFILE</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight mb-6">关于我与<br class="hidden lg:inline">核心主张</h2>
+                        <div class="h-1 w-20 bg-brand-green rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- 详细介绍与技能板 -->
+                <div class="lg:col-span-8 space-y-12">
+                    <div class="bg-brand-cardBg border border-zinc-800/80 p-8 sm:p-10 rounded-2xl relative overflow-hidden group">
+                        <!-- 右上角小装饰 -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 rounded-full blur-2xl"></div>
+                        
+                        <p class="text-zinc-300 text-lg leading-relaxed mb-6 font-light">
+                            我叫 <strong class="text-white font-semibold text-xl">钟瀚葳</strong>，是一名具备全链路视觉呈现能力的 <strong class="text-brand-green font-semibold">平面与UI/UX设计师</strong>。
+                        </p>
+                        <p class="text-brand-grayText text-base leading-relaxed mb-6">
+                            我叫钟瀚葳，是一名平面设计师。我的核心优势在于：不仅精通 PS、AI、CDR 等平面设计软件，做过海报、VI、包装和电商美工（有提升15%点击率的经验），还熟练掌握 AE、PR 等多媒体动效与剪辑工具，并具备小程序 UI/UX 设计经验，并且非常熟悉线下印刷工艺与成品落地。
+                        </p>
+                        <p class="text-brand-grayText text-base leading-relaxed mb-8">
+                            我认为，设计的最终目的是**为商业解决问题**并**实现极致用户体验**。线上小程序的UI要考虑到“单手拇指操控”的便携，而线下海报包装，则必须完美驾驭CMYK色彩和纸张材质，让作品摸得到的质感与屏幕里看到的同样高级、大气。
+                        </p>
+
+                        <!-- 三大优势标签 -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-zinc-800/60">
+                            <div class="flex items-start space-x-3">
+                                <div class="mt-1 flex-shrink-0 text-brand-green"><i class="fa-solid fa-palette"></i></div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">全能平面功底</h4>
+                                    <p class="text-xs text-zinc-500 mt-1">精通海报、包装、VI与画册</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="mt-1 flex-shrink-0 text-brand-green"><i class="fa-solid fa-mobile-screen"></i></div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">UI/UX 小程序</h4>
+                                    <p class="text-xs text-zinc-500 mt-1">注重极简交互与单手操作</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="mt-1 flex-shrink-0 text-brand-green"><i class="fa-solid fa-print"></i></div>
+                                <div>
+                                    <h4 class="text-white font-semibold text-sm">线下印刷工艺</h4>
+                                    <p class="text-xs text-zinc-500 mt-1">精通出血特种纸印后打样</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 专业技能 (胶囊技能标签) -->
+                    <div id="skills" class="space-y-8 pt-6">
+                        <h3 class="text-xl font-bold text-white flex items-center">
+                            <i class="fa-solid fa-cubes text-brand-green mr-2"></i> 专业技能矩阵
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- 软件技能 -->
+                            <div class="bg-zinc-950/80 border border-zinc-800/60 p-6 rounded-xl space-y-6">
+                                <h4 class="text-sm font-semibold text-zinc-300 font-mono tracking-widest uppercase border-b border-zinc-900 pb-3">// 精通设计软件</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>Adobe Photoshop (高精修图 / 电商美工 / 详情页)</span>
+                                            <span class="text-emerald-400 font-mono">95%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-emerald-400 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>Adobe Illustrator (VI / 包装设计 / 矢量艺术)</span>
+                                            <span class="text-emerald-400 font-mono">90%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-emerald-400 rounded-full" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>CorelDRAW (线下商业宣传物料 / 大图印刷)</span>
+                                            <span class="text-emerald-400 font-mono">85%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-emerald-400 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>After Effects (MG动效 / 动态视觉特效)</span>
+                                            <span class="text-emerald-400 font-mono">88%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-emerald-400 rounded-full" style="width: 88%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>Premiere Pro (宣传片 / 剪辑 / 动态创意)</span>
+                                            <span class="text-emerald-400 font-mono">90%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-emerald-400 rounded-full" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 实践技能 -->
+                            <div class="bg-zinc-950/80 border border-zinc-800/60 p-6 rounded-xl space-y-6">
+                                <h4 class="text-sm font-semibold text-zinc-300 font-mono tracking-widest uppercase border-b border-zinc-900 pb-3">// 核心设计能力</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>电商详情重构 & 爆款主图提升点击率</span>
+                                            <span class="text-purple-400 font-mono">95%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>线下印刷介质、打样色彩与工艺对接</span>
+                                            <span class="text-purple-400 font-mono">95%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs text-zinc-400 mb-1.5">
+                                            <span>微信小程序 UI/UX 体验与交互规范</span>
+                                            <span class="text-purple-400 font-mono">88%</span>
+                                        </div>
+                                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 88%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 技能胶囊标签 -->
+                        <div class="pt-6">
+                            <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-4">技能检索胶囊 / SKILLS TAGS</span>
+                            <div class="flex flex-wrap gap-2.5">
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300">Photoshop</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300">Illustrator</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300">CorelDRAW</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-orange-400 hover:text-orange-400 transition-all duration-300">After Effects</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-orange-400 hover:text-orange-400 transition-all duration-300">Premiere Pro</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">电商视觉设计</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-purple-400 hover:text-purple-400 transition-all duration-300">UI/UX 设计</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300">品牌 VI 系统</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-emerald-400 hover:text-emerald-400 transition-all duration-300">印刷工艺对接</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-purple-400 hover:text-purple-400 transition-all duration-300">微信小程序规范</span>
+                                <span class="px-4 py-2 rounded-full bg-zinc-900 text-zinc-300 text-sm font-medium border border-zinc-800/80 hover:border-orange-400 hover:text-orange-400 transition-all duration-300">多媒体动效</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 4.5. 像素与材质交互色彩实验室 (Interactive Print Lab) -->
+    <section id="print-lab" class="py-24 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
+        <!-- 装饰渐变光 -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- 头部 -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sm font-mono text-brand-green uppercase tracking-widest font-semibold block mb-2">// INTERACTIVE COLOR LAB</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight mb-4">像素与材质实验室 ｜ PRINT COLOR & INK LAB</h2>
+                <p class="text-brand-grayText text-base font-light">
+                    优秀的平面设计师，不仅要在屏幕上还原惊艳的像素（Pixels），更要懂得在线下纸张、包装介质上实现 100% 完美的无损材质落地。
+                </p>
+            </div>
+
+            <!-- 实验室网格 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- 左列: 交互设置与预设 (7列) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- 第一步: 色彩检测器 -->
+                    <div class="bg-brand-cardBg border border-zinc-800/80 rounded-2xl p-6">
+                        <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-4">1. 印刷专色与打样分析 / COLOR SPECTRUM</span>
+                        
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5" id="color-selectors">
+                            <!-- 动态选择按钮 -->
+                            <button onclick="selectLabColor(0)" id="btn-col-0" class="p-3 rounded-xl border text-left transition-all duration-300 relative overflow-hidden group border-brand-green bg-zinc-900/50 shadow-glow-green">
+                                <div class="w-full h-8 rounded-lg mb-2 transition-transform duration-300 group-hover:scale-105 bg-[#00FF87]"></div>
+                                <div class="text-xs font-bold text-white truncate">品牌荧光绿</div>
+                                <div class="text-[9px] font-mono text-zinc-500 mt-0.5">#00FF87</div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-brand-green rounded-full" id="dot-col-0"></div>
+                            </button>
+                            <button onclick="selectLabColor(1)" id="btn-col-1" class="p-3 rounded-xl border text-left transition-all duration-300 relative overflow-hidden group border-zinc-800 bg-zinc-950/40 hover:border-zinc-700">
+                                <div class="w-full h-8 rounded-lg mb-2 transition-transform duration-300 group-hover:scale-105 bg-[#121214]"></div>
+                                <div class="text-xs font-bold text-white truncate">超饱和重彩黑</div>
+                                <div class="text-[9px] font-mono text-zinc-500 mt-0.5">#121214</div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-brand-green rounded-full hidden" id="dot-col-1"></div>
+                            </button>
+                            <button onclick="selectLabColor(2)" id="btn-col-2" class="p-3 rounded-xl border text-left transition-all duration-300 relative overflow-hidden group border-zinc-800 bg-zinc-950/40 hover:border-zinc-700">
+                                <div class="w-full h-8 rounded-lg mb-2 transition-transform duration-300 group-hover:scale-105 bg-[#D4AF37]"></div>
+                                <div class="text-xs font-bold text-white truncate">高端拉丝金</div>
+                                <div class="text-[9px] font-mono text-zinc-500 mt-0.5">#D4AF37</div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-brand-green rounded-full hidden" id="dot-col-2"></div>
+                            </button>
+                            <button onclick="selectLabColor(3)" id="btn-col-3" class="p-3 rounded-xl border text-left transition-all duration-300 relative overflow-hidden group border-zinc-800 bg-zinc-950/40 hover:border-zinc-700">
+                                <div class="w-full h-8 rounded-lg mb-2 transition-transform duration-300 group-hover:scale-105 bg-[#06B6D4]"></div>
+                                <div class="text-xs font-bold text-white truncate">高能电子青</div>
+                                <div class="text-[9px] font-mono text-zinc-500 mt-0.5">#06B6D4</div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-brand-green rounded-full hidden" id="dot-col-3"></div>
+                            </button>
+                        </div>
+
+                        <!-- 详情面板 -->
+                        <div class="bg-zinc-950 border border-zinc-900 rounded-xl p-4 flex flex-col sm:flex-row gap-4 justify-between items-start">
+                            <div class="space-y-2 flex-1">
+                                <div class="flex items-center gap-2">
+                                    <span id="lab-color-cat" class="text-xs px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-brand-green font-mono font-medium">特专色 ｜ Spot Color</span>
+                                </div>
+                                <p id="lab-color-advice" class="text-zinc-300 text-xs sm:text-sm font-light leading-relaxed">
+                                    荧光绿在常规CMYK四色印刷中极易发灰暗淡。强烈建议使用 PANTONE 802C 专色油墨进行单版印刷，以100%还原荧光像素的亮烈质感。
+                                </p>
+                            </div>
+                            
+                            <div class="flex flex-col gap-1.5 bg-zinc-900 p-3 rounded-lg border border-zinc-800 w-full sm:w-auto text-left flex-shrink-0">
+                                <div>
+                                    <span class="text-[9px] font-mono text-zinc-500 block uppercase">印刷标准值</span>
+                                    <span id="lab-color-cmyk" class="text-sm font-bold font-mono text-brand-green">C60 M0 Y100 K0</span>
+                                </div>
+                                <div class="border-t border-zinc-800 pt-1">
+                                    <span class="text-[9px] font-mono text-zinc-500 block uppercase">屏幕对应色</span>
+                                    <span id="lab-color-rgb" class="text-xs font-mono text-zinc-400">R0 G255 B135</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二步: 纸张材质设定 -->
+                    <div class="bg-brand-cardBg border border-zinc-800/80 rounded-2xl p-6">
+                        <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-4">2. 纸张介质与吸墨负荷 / PAPER INTERACTION</span>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                            <button onclick="selectLabPaper('coated')" id="btn-pap-coated" class="p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between relative overflow-hidden border-purple-500 bg-zinc-900/50 shadow-[0_0_15px_rgba(168,85,247,0.08)]">
+                                <div>
+                                    <div class="text-xs font-bold text-white mb-1">250g 高光双铜版纸</div>
+                                    <div class="text-[10px] text-zinc-400 font-light truncate">滑顺平整、反射率高</div>
+                                </div>
+                                <div class="mt-4 pt-2 border-t border-zinc-800 flex items-center justify-between">
+                                    <span class="text-[10px] font-mono text-zinc-500">Max墨量</span>
+                                    <span class="text-[10px] font-bold font-mono text-purple-400">320%</span>
+                                </div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-purple-500 rounded-full" id="dot-pap-coated"></div>
+                            </button>
+
+                            <button onclick="selectLabPaper('matte')" id="btn-pap-matte" class="p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between relative overflow-hidden border-zinc-800 bg-zinc-950/40 hover:border-zinc-700">
+                                <div>
+                                    <div class="text-xs font-bold text-white mb-1">200g 高雅哑粉纸</div>
+                                    <div class="text-[10px] text-zinc-400 font-light truncate">哑光低反光、触感典雅</div>
+                                </div>
+                                <div class="mt-4 pt-2 border-t border-zinc-800 flex items-center justify-between">
+                                    <span class="text-[10px] font-mono text-zinc-500">Max墨量</span>
+                                    <span class="text-[10px] font-bold font-mono text-purple-400">280%</span>
+                                </div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-purple-500 rounded-full hidden" id="dot-pap-matte"></div>
+                            </button>
+
+                            <button onclick="selectLabPaper('textured')" id="btn-pap-textured" class="p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between relative overflow-hidden border-zinc-800 bg-zinc-950/40 hover:border-zinc-700">
+                                <div>
+                                    <div class="text-xs font-bold text-white mb-1">180g 绅士艺术特种纸</div>
+                                    <div class="text-[10px] text-zinc-400 font-light truncate">纤维粗糙、有机凹凸触感</div>
+                                </div>
+                                <div class="mt-4 pt-2 border-t border-zinc-800 flex items-center justify-between">
+                                    <span class="text-[10px] font-mono text-zinc-500">Max墨量</span>
+                                    <span class="text-[10px] font-bold font-mono text-orange-400">220%</span>
+                                </div>
+                                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-purple-500 rounded-full hidden" id="dot-pap-textured"></div>
+                            </button>
+                        </div>
+
+                        <!-- 纸张详情区 -->
+                        <div class="bg-zinc-950 border border-zinc-900 rounded-xl p-4 space-y-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span class="text-xs text-zinc-300 font-light">
+                                    <strong class="text-white">介质特性：</strong> <span id="lab-pap-desc">双面涂布高岭土，纸面极其光滑平整，对网点油墨吸收少。网点再现率极好，色彩极其鲜艳逼真。</span>
+                                </span>
+                                <div class="flex items-center gap-2 bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800 text-[10px] font-mono text-zinc-400">
+                                    <span>建议挂网分辨率：</span>
+                                    <span id="lab-pap-dpi" class="text-purple-400 font-semibold">300 DPI - 350 DPI</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 bg-zinc-900/40 border border-zinc-850 rounded-lg flex items-start gap-2">
+                                <div id="lab-pap-warning-icon" class="text-brand-green mt-0.5"><i class="fa-solid fa-circle-check"></i></div>
+                                <div class="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-light">
+                                    <strong class="text-zinc-200">印前色彩控制规程（Pro Tips）：</strong> <span id="lab-pap-tips">适合高精详情画册、食品外卖亮光包装袋。支持最高320%总墨量，注意预防叠印不实。</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右列: 视觉物理仿真器 (5列) -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-brand-cardBg border border-zinc-800/80 rounded-2xl p-6 flex flex-col justify-between h-full">
+                        <div>
+                            <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest block mb-4">3. 印前物理仿真校验 / REALISTIC SIMULATOR</span>
+
+                            <!-- 仿真物理渲染区 -->
+                            <div class="relative aspect-video w-full rounded-xl bg-zinc-950 border border-zinc-850 flex flex-col items-center justify-center overflow-hidden mb-6 p-4">
+                                <!-- 网格虚线 -->
+                                <div class="absolute inset-0 bg-[radial-gradient(#ffffff02_1px,transparent_1px)] [background-size:10px_10px]"></div>
+                                
+                                <!-- 动态色彩辉光 -->
+                                <div id="lab-sim-glow" class="absolute w-24 h-24 rounded-full blur-2xl opacity-15 transition-all duration-500 bg-[#00FF87]"></div>
+
+                                <!-- 核心仿真文字 -->
+                                <div class="relative z-10 flex flex-col items-center">
+                                    <div id="lab-sim-text" class="text-6xl font-bold font-display tracking-widest select-none transition-all duration-300 flex items-center justify-center relative text-[#00FF87]" style="filter: blur(1.2px) contrast(92.5%);">
+                                        <span>VI</span>
+                                        <!-- 印刷网点仿真叠加层 -->
+                                        <div class="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#000000_1px,transparent_1px)]" style="background-size: 20px 20px;"></div>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-zinc-500 mt-2 tracking-widest uppercase">印制网点物理成像</span>
+                                </div>
+
+                                <!-- 物理检测卡 -->
+                                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono">
+                                    <div class="flex items-center gap-1 text-zinc-400">
+                                        <span>介质:</span>
+                                        <span id="lab-sim-papname" class="text-purple-400">铜版纸</span>
+                                    </div>
+                                    <div class="flex items-center gap-1" id="lab-sim-alert">
+                                        <span class="text-emerald-400 flex items-center gap-0.5"><i class="fa-solid fa-circle-check"></i> 细节呈现完美</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 交互滑块控制 -->
+                            <div class="space-y-4">
+                                <!-- 滑块1: Dot Gain -->
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-zinc-400 flex items-center gap-1">
+                                            网点增益仿真 (Dot Gain)
+                                            <i class="fa-regular fa-circle-question text-zinc-600 text-[10px]" title="印刷压力或纸张吸水会导致油墨向外溢出，网点变大。特种纸吸水重，增益率高。"></i>
+                                        </span>
+                                        <span id="label-dot-gain" class="font-mono text-zinc-300">+15%</span>
+                                    </div>
+                                    <input type="range" min="5" max="30" value="15" id="slider-dot-gain" oninput="updateLabSimulators()" class="w-full h-1 bg-zinc-950 rounded-lg appearance-none cursor-pointer accent-brand-green">
+                                    <div class="flex justify-between text-[9px] text-zinc-600 font-mono mt-1">
+                                        <span>高线数/硬挺 (5%)</span>
+                                        <span>标准纸 (15%)</span>
+                                        <span>高吸水特种纸 (30%)</span>
+                                    </div>
+                                </div>
+
+                                <!-- 滑块2: DPI Resolution -->
+                                <div class="pt-2">
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-zinc-400 flex items-center gap-1">
+                                            印前分辨率 (Resolution DPI)
+                                            <i class="fa-regular fa-circle-question text-zinc-600 text-[10px]" title="屏幕显示一般为72 DPI，但线下印刷要求必须达到 300 DPI 或以上，否则边缘会有严重的锯齿模糊。"></i>
+                                        </span>
+                                        <span id="label-dpi" class="font-mono text-brand-green font-bold">300 DPI</span>
+                                    </div>
+                                    <input type="range" min="72" max="400" value="300" id="slider-dpi" oninput="updateLabSimulators()" class="w-full h-1 bg-zinc-950 rounded-lg appearance-none cursor-pointer accent-purple-500">
+                                    <div class="flex justify-between text-[9px] text-zinc-600 font-mono mt-1">
+                                        <span>72 DPI (屏幕级)</span>
+                                        <span>200 DPI (欠清晰)</span>
+                                        <span>300+ DPI (印刷级)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 仿真评级 -->
+                        <div class="mt-6 pt-5 border-t border-zinc-800 text-center">
+                            <span class="text-[10px] font-mono text-zinc-500 uppercase block mb-1">物理还原评分 / SIMULATION REPORT</span>
+                            <span id="lab-sim-score" class="text-lg font-extrabold text-white font-display text-emerald-400">Perfect ｜ 卓越还原度 98%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 5. 作品案例展示区 (Portfolio Grid) -->
+    <section id="portfolio" class="py-24 bg-zinc-950/40 border-t border-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- 头部说明 -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sm font-mono text-brand-green uppercase tracking-widest font-semibold block mb-2">// DESIGN PORTFOLIO</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight mb-4">精选作品案例展示</h2>
+                <p class="text-brand-grayText text-base">
+                    每一个案例，都是线上极致用户体验与线下严苛印刷工艺的真实落地见证。
+                </p>
+            </div>
+
+            <!-- 交互预览控制条 (Interaction Upgrade) -->
+            <div class="flex justify-between items-center max-w-4xl mx-auto bg-zinc-900/60 border border-zinc-800 p-3 rounded-2xl flex-col sm:flex-row gap-4 mb-12">
+                <div class="text-center sm:text-left">
+                    <span class="text-[10px] font-mono text-zinc-500 block uppercase tracking-widest">预览模式切换 ｜ OFFLINE PREVIEW CONTROLLER</span>
+                    <span class="text-xs text-zinc-400">支持在“智能实拍图”与“高保真CSS手绘材质样机（不依赖外部加载）”间自由切换</span>
+                </div>
+                <div class="inline-flex bg-zinc-950 border border-zinc-850 p-1 rounded-xl shrink-0">
+                    <button onclick="togglePortfolioMockups(false)" id="btn-mock-photo" class="px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 flex items-center gap-1.5 bg-gradient-to-r from-brand-green to-cyan-500 text-brand-darkBg shadow-glow-green">
+                        <i class="fa-solid fa-image"></i> 智能实拍模式
+                    </button>
+                    <button onclick="togglePortfolioMockups(true)" id="btn-mock-css" class="px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 flex items-center gap-1.5 text-zinc-400 hover:text-white">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> CSS手绘样机
+                    </button>
+                </div>
+            </div>
+
+            <!-- 网格布局 (PC端双列, 移动端单列) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                
+                <!-- 卡片 1: 餐饮品牌 VI 与包装设计 -->
+                <div class="group bg-brand-cardBg border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-purple-500/80 hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(168,85,247,0.15)] cursor-pointer" onclick="openProjectModal(1)">
+                    <div>
+                        <!-- 封装好的图片容器 (含悬停平滑缩放与偏色) -->
+                        <div class="relative aspect-[4/3] w-full overflow-hidden bg-zinc-950">
+                            <!-- 实景照片 -->
+                            <img id="project-img-1" src="https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/restaurant_vi_brand_1782279123385.jpg" alt="餐饮品牌 VI 与包装设计" class="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105" onerror="handleProjectImgError(1)" referrerPolicy="no-referrer">
+                            
+                            <!-- 作品1 CSS 样机 (暖橙到深褐渐变背景，包装或LOGO图标) -->
+                            <div id="project-css-1" class="absolute inset-0 bg-gradient-to-br from-amber-600 via-orange-500 to-amber-950 flex flex-col items-center justify-center p-6 text-white select-none hidden">
+                                <div class="absolute inset-3 border border-dashed border-white/20 rounded-xl pointer-events-none animate-pulse"></div>
+                                <div class="absolute top-2 left-2 w-4 h-4 border-t border-l border-white/40"></div>
+                                <div class="absolute top-2 right-2 w-4 h-4 border-t border-r border-white/40"></div>
+                                <div class="absolute bottom-2 left-2 w-4 h-4 border-b border-l border-white/40"></div>
+                                <div class="absolute bottom-2 right-2 w-4 h-4 border-b border-r border-white/40"></div>
+                                <div class="relative z-10 flex flex-col items-center text-center space-y-3">
+                                    <div class="w-14 h-14 rounded-full bg-zinc-900/60 border border-white/20 flex items-center justify-center shadow-2xl backdrop-blur-sm transform group-hover:scale-105 transition-transform duration-300">
+                                        <i class="fa-solid fa-utensils text-brand-green text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] font-mono text-orange-200 uppercase tracking-widest font-bold">// 餐饮VI & 标准化包装系统</div>
+                                        <div class="text-sm font-extrabold mt-1 text-white tracking-wide">RESTAURANT BRAND IDENTITY</div>
+                                    </div>
+                                    <div class="flex gap-2 text-[9px] font-mono bg-zinc-950/70 border border-zinc-800 px-3 py-1 rounded-md">
+                                        <span class="text-brand-green">专色: PANTONE 802C</span>
+                                        <span class="text-zinc-500">|</span>
+                                        <span class="text-amber-300">CMYK 还原</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 text-[9px] font-mono text-zinc-300/60 text-center">
+                                    [ 样机说明: 建议替换为实物样机mock-up效果图或品牌视觉规范图 ]
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60"></div>
+                            <span class="absolute top-4 right-4 bg-brand-green text-brand-darkBg text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest font-mono">品牌设计 / 包装</span>
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-200 mb-3">1. 餐饮品牌 VI 与包装设计</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                                主设计师：完成LOGO优化、外卖包装、手提袋及基础VI规范设计，输出规范的线下印刷参数，确保100%零色差生产落地。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 sm:px-8 pb-6 sm:pb-8 flex items-center justify-between border-t border-zinc-900 pt-4">
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">品牌 VI</span>
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">特种纸打样</span>
+                        </div>
+                        <span class="text-brand-green group-hover:text-purple-400 text-xs font-semibold group-hover:underline flex items-center transition-colors">
+                            查看设计详情 <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 卡片 2: 轻量化智能修图微信小程序 UI/UX 设计 -->
+                <div class="group bg-brand-cardBg border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-purple-500/80 hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(168,85,247,0.15)] cursor-pointer" onclick="openProjectModal(2)">
+                    <div>
+                        <div class="relative aspect-[4/3] w-full overflow-hidden bg-zinc-950">
+                            <!-- 实景照片 -->
+                            <img id="project-img-2" src="https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/mobile_uiux_program_1782279139802.jpg" alt="轻量化智能修图微信小程序 UI/UX 设计" class="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105" onerror="handleProjectImgError(2)" referrerPolicy="no-referrer">
+                            
+                            <!-- 作品2 CSS 样机 (微蓝到纯白极简科技渐变，手机外壳轮廓容器) -->
+                            <div id="project-css-2" class="absolute inset-0 bg-gradient-to-br from-violet-600 via-indigo-900 to-zinc-950 flex flex-col items-center justify-center p-4 text-white select-none hidden">
+                                <div class="absolute top-4 right-4 w-16 h-16 rounded-full bg-cyan-500/10 blur-xl"></div>
+                                <div class="absolute bottom-4 left-4 w-16 h-16 rounded-full bg-purple-500/10 blur-xl"></div>
+                                
+                                <!-- 手机容器 -->
+                                <div class="w-[125px] h-[190px] bg-zinc-950 border-[3px] border-zinc-700 rounded-2xl p-1.5 relative flex flex-col justify-between shadow-2xl z-10">
+                                    <!-- 听筒/刘海 -->
+                                    <div class="absolute top-1 left-1/2 transform -translate-x-1/2 w-10 h-2 bg-zinc-800 rounded-full"></div>
+                                    
+                                    <!-- 手机内部屏幕 -->
+                                    <div class="w-full h-full bg-zinc-900/80 rounded-xl p-1.5 flex flex-col justify-between overflow-hidden relative border border-zinc-800">
+                                        <div class="flex justify-between items-center text-[6px] font-mono text-zinc-500">
+                                            <span class="scale-90">智能极简剪修</span>
+                                            <div class="flex gap-0.5 scale-90">
+                                                <span class="w-1 h-1 bg-zinc-600 rounded-full"></span>
+                                                <span class="w-1.5 h-1 bg-zinc-600 rounded-full"></span>
+                                            </div>
+                                        </div>
+                                        <div class="my-1 flex-1 border border-dashed border-brand-green/30 rounded relative flex items-center justify-center bg-zinc-950 overflow-hidden">
+                                            <i class="fa-solid fa-mobile-screen-button text-brand-green text-lg animate-pulse"></i>
+                                        </div>
+                                        <div class="space-y-0.5">
+                                            <div class="h-1 bg-zinc-800 rounded-full relative overflow-hidden">
+                                                <div class="absolute left-0 top-0 h-full w-2/3 bg-gradient-to-r from-purple-500 to-cyan-400"></div>
+                                            </div>
+                                            <div class="flex justify-between text-[5px] font-mono text-zinc-500">
+                                                <span>曝光 ＋65%</span>
+                                                <span class="text-cyan-400">UI/UX SPECS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-2 text-[9px] font-mono text-zinc-400/60 text-center">
+                                    [ 样机说明: 建议替换为小程序核心功能界面的长图或精修手机UI样机图 ]
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60"></div>
+                            <span class="absolute top-4 right-4 bg-brand-green text-brand-darkBg text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest font-mono">UI/UX / 移动端</span>
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-200 mb-3">2. 轻量化智能修图微信小程序 UI/UX 设计</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                                核心设计：针对拇指热区规划交互，极致优化单手握持逻辑。打造低学习成本、三步内无感完成编辑与保存的修图流程。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 sm:px-8 pb-6 sm:pb-8 flex items-center justify-between border-t border-zinc-900 pt-4">
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">小程序规范</span>
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">极简交互</span>
+                        </div>
+                        <span class="text-brand-green group-hover:text-purple-400 text-xs font-semibold group-hover:underline flex items-center transition-colors">
+                            查看设计详情 <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 卡片 3: 电商视觉设计展示 -->
+                <div class="group bg-brand-cardBg border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-purple-500/80 hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(168,85,247,0.15)] cursor-pointer" onclick="openProjectModal(3)">
+                    <div>
+                        <div class="relative aspect-[4/3] w-full overflow-hidden bg-zinc-950">
+                            <!-- 实景照片 -->
+                            <img id="project-img-3" src="https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/ecommerce_visual_banner_1782279153617.jpg" alt="电商视觉设计展示" class="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105" onerror="handleProjectImgError(3)" referrerPolicy="no-referrer">
+                            
+                            <!-- 作品3 CSS 样机 (热烈红到活力橙高饱和渐变，购物车与标签，点击率提升15%标签) -->
+                            <div id="project-css-3" class="absolute inset-0 bg-gradient-to-br from-rose-600 via-red-500 to-orange-500 flex flex-col items-center justify-center p-6 text-white select-none hidden">
+                                <div class="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-white/10 blur-xl"></div>
+                                <div class="absolute -bottom-12 -left-12 w-28 h-28 rounded-full bg-yellow-400/20 blur-xl"></div>
+                                <div class="relative z-10 flex flex-col items-center text-center space-y-3">
+                                    <div class="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shadow-xl rotate-12 group-hover:rotate-0 transition-all duration-300 backdrop-blur-sm">
+                                        <i class="fa-solid fa-cart-shopping text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] font-mono text-yellow-300 uppercase tracking-widest font-black flex items-center justify-center gap-1">
+                                            <span>✦</span> E-COMMERCE CAMPAIGN <span>✦</span>
+                                        </div>
+                                        <div class="text-sm font-extrabold mt-1 text-white">详情重构与爆款电商设计</div>
+                                    </div>
+                                </div>
+                                <div class="absolute top-4 left-4 bg-yellow-400 text-neutral-950 text-[10px] font-black px-2.5 py-1 rounded shadow-xl transform -rotate-3 hover:rotate-0 transition-transform flex items-center gap-0.5">
+                                    点击率提升15% ↓
+                                </div>
+                                <div class="absolute bottom-4 text-[9px] font-mono text-zinc-100/60 text-center">
+                                    [ 样机说明: 建议替换为高点击率的天猫/京东详情页切片或直通车营销主图展示 ]
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60"></div>
+                            <span class="absolute top-4 right-4 bg-brand-green text-brand-darkBg text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest font-mono">电商视觉 / 爆款详情</span>
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-200 mb-3 flex items-center gap-1.5">
+                                3. 电商视觉设计展示
+                                <span class="bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded ml-1.5">HOT 15%↑</span>
+                            </h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                                独立美工：完成 20+ 款电商详情页优化，设计 high-profile 产品宣传，大促活动主图实测提升自然曝光点击率与转化率 15% 以上。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 sm:px-8 pb-6 sm:pb-8 flex items-center justify-between border-t border-zinc-900 pt-4">
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">详情页重构</span>
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">高点击主图</span>
+                        </div>
+                        <span class="text-brand-green group-hover:text-purple-400 text-xs font-semibold group-hover:underline flex items-center transition-colors">
+                            查看设计详情 <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 卡片 4: 商业广告与线下物料落地 -->
+                <div class="group bg-brand-cardBg border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-purple-500/80 hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(168,85,247,0.15)] cursor-pointer" onclick="openProjectModal(4)">
+                    <div>
+                        <div class="relative aspect-[4/3] w-full overflow-hidden bg-zinc-950">
+                            <!-- 实景照片 -->
+                            <img id="project-img-4" src="https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/outdoor_print_billboard_1782279167516.jpg" alt="商业广告与线下物料落地" class="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105" onerror="handleProjectImgError(4)" referrerPolicy="no-referrer">
+                            
+                            <!-- 作品4 CSS 样机 (深蓝到墨绿商务感渐变，印刷或展板图标) -->
+                            <div id="project-css-4" class="absolute inset-0 bg-gradient-to-br from-[#022c22] via-[#064e3b] to-zinc-950 flex flex-col items-center justify-center p-6 text-white select-none hidden">
+                                <div class="absolute inset-4 border border-zinc-800/80 rounded-xl flex items-center justify-center">
+                                    <div class="absolute inset-4 border border-dashed border-zinc-700/40 rounded-lg"></div>
+                                </div>
+                                <div class="absolute top-4 right-4 flex gap-1">
+                                    <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                    <div class="w-2 h-2 rounded-full bg-pink-500"></div>
+                                    <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+                                    <div class="w-2 h-2 rounded-full bg-zinc-900 border border-zinc-700"></div>
+                                </div>
+                                <div class="relative z-10 flex flex-col items-center text-center space-y-3">
+                                    <div class="w-16 h-12 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center shadow-lg relative">
+                                        <i class="fa-solid fa-print text-purple-400 text-lg"></i>
+                                        <div class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-brand-green rounded-full animate-ping"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] font-mono text-brand-green uppercase tracking-widest font-semibold">// 线下媒介大图 & 商务印刷</div>
+                                        <div class="text-sm font-extrabold mt-1 text-white">OUTDOOR BILLBOARD & MATERIAL</div>
+                                    </div>
+                                    <div class="text-[9px] font-mono text-zinc-400 uppercase bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded-md">Bleed 3mm / CMYK Color Corrected</div>
+                                </div>
+                                <div class="absolute bottom-4 text-[9px] font-mono text-zinc-400/60 text-center">
+                                    [ 样机说明: 建议替换为商场活动海报、户外广告或者印刷成品落地实拍图 ]
+                                </div>
+                            </div>
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60"></div>
+                            <span class="absolute top-4 right-4 bg-brand-green text-brand-darkBg text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest font-mono">户外画册 / 印后工艺</span>
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-200 mb-3">4. 商业广告与线下物料落地</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                                参与 30+ 商业项目，包含商场巨幅海报、户外巨幅、高精宣传册，完美对接印刷厂，熟悉各种后道特种材料工艺。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 sm:px-8 pb-6 sm:pb-8 flex items-center justify-between border-t border-zinc-900 pt-4">
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">户外巨幅</span>
+                            <span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">工艺全流程</span>
+                        </div>
+                        <span class="text-brand-green group-hover:text-purple-400 text-xs font-semibold group-hover:underline flex items-center transition-colors">
+                            查看设计详情 <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 6. 教育背景与荣誉奖项 -->
+    <section id="education" class="py-24 border-t border-zinc-900 relative overflow-hidden">
+        <!-- 装饰渐变光 -->
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- 侧边标题 -->
+                <div class="lg:col-span-4">
+                    <span class="text-sm font-mono text-brand-green uppercase tracking-widest font-semibold block mb-2">// EDUCATION & HONORS</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight mb-6">教育背景与<br class="hidden lg:inline">行业荣誉奖项</h2>
+                    <div class="h-1 w-20 bg-brand-green rounded-full mb-6"></div>
+                    <p class="text-zinc-500 text-sm max-w-sm">
+                        在科班训练中夯实基础，在真实竞技中打磨手艺。每一项荣誉都是对匠人精神的最好诠释。
+                    </p>
+                </div>
+
+                <!-- 详细履历 -->
+                <div class="lg:col-span-8 space-y-12">
+                    
+                    <!-- 教育背景板块 -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-white flex items-center font-display border-b border-zinc-800 pb-3">
+                            <i class="fa-solid fa-graduation-cap text-brand-green mr-2.5"></i> 教育经历
+                        </h3>
+                        <div class="bg-brand-cardBg border border-zinc-800/80 p-8 rounded-xl relative group hover:border-zinc-700/80 transition-all duration-300">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                                <div>
+                                    <h4 class="text-lg font-bold text-white">江西文理技师学院龙南校区</h4>
+                                    <p class="text-sm text-brand-green font-medium mt-1">广告设计专业</p>
+                                </div>
+                                <span class="px-3.5 py-1 bg-zinc-900 rounded-full text-xs font-mono text-zinc-400 border border-zinc-800">2022 - 2025</span>
+                            </div>
+                            <p class="text-brand-grayText text-sm leading-relaxed">
+                                系统学习平面视觉传达、字体设计、版式美学、包装工艺与印前数字排版。在校期间专注应用实践，打下了坚实的矢量插画、平面排版、包装打样与数字美工功底。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 荣誉高亮板块 -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-white flex items-center font-display border-b border-zinc-800 pb-3">
+                            <i class="fa-solid fa-trophy text-brand-green mr-2.5"></i> 执业资格与竞赛荣誉
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- 荣誉一 -->
+                            <div class="bg-brand-cardBg border border-zinc-800/80 p-6 rounded-xl relative overflow-hidden group hover:border-brand-green/40 transition-all duration-300">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-brand-green/5 rounded-full blur-xl"></div>
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="h-8 w-8 rounded bg-zinc-900 flex items-center justify-center text-brand-green border border-zinc-800">
+                                        <i class="fa-solid fa-stamp text-xs"></i>
+                                    </div>
+                                    <span class="text-xs font-mono font-semibold text-brand-green px-2 py-0.5 rounded bg-brand-green/10 border border-brand-green/20">官方认证</span>
+                                </div>
+                                <h4 class="text-base font-bold text-white mb-2">广告设计师职业资格证书</h4>
+                                <p class="text-zinc-400 text-xs">2025年11月通过国家级考核认定，具备优秀的视觉设计与商业美工理论及实操技能。</p>
+                            </div>
+
+                            <!-- 荣誉二 -->
+                            <div class="bg-brand-cardBg border border-zinc-800/80 p-6 rounded-xl relative overflow-hidden group hover:border-brand-green/40 transition-all duration-300">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-500/5 rounded-full blur-xl"></div>
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="h-8 w-8 rounded bg-zinc-900 flex items-center justify-center text-brand-green border border-zinc-800">
+                                        <i class="fa-solid fa-award text-xs"></i>
+                                    </div>
+                                    <span class="text-xs font-mono font-semibold text-brand-green px-2 py-0.5 rounded bg-brand-green/10 border border-brand-green/20">市级荣誉</span>
+                                </div>
+                                <h4 class="text-base font-bold text-white mb-2">首届“工匠杯”平面设计技能赛</h4>
+                                <p class="text-zinc-400 text-xs">在首届“工匠杯”平面设计专业技能比赛中斩获第二名（亚军），实操排版和细节受到评审高度评价。</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 7. 联系方式与页脚 -->
+    <section id="contact" class="py-24 border-t border-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-gradient-to-br from-brand-cardBg to-zinc-950 border border-zinc-800/80 rounded-2xl p-8 sm:p-12 lg:p-16 relative overflow-hidden">
+                <!-- 炫酷科技风光球 -->
+                <div class="absolute -bottom-16 -right-16 w-80 h-80 bg-brand-green/10 rounded-full blur-3xl"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- 左侧文案 -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <span class="text-xs font-mono text-brand-green uppercase tracking-widest font-semibold block">// COLLABORATION</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight leading-tight">
+                            有合作意向？<br>即刻与我取得联系
+                        </h2>
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-lg">
+                            我目前正在积极寻找平面设计、电商视觉美工、UI/UX设计方向的全职或项目合作机会。如有需求，随时欢迎拨打我的电话或发送邮件。
+                        </p>
+                        
+                        <!-- 个人坐标 -->
+                        <div class="flex items-center space-x-3 pt-4 text-zinc-500 text-xs font-mono">
+                            <i class="fa-solid fa-earth-asia text-brand-green"></i>
+                            <span>CHINESE DESIGNER ｜ CURRENTLY LOCATED IN GANZHOUSHI, JIANGXI</span>
+                        </div>
+                    </div>
+
+                    <!-- 右侧联系卡片 -->
+                    <div class="lg:col-span-6">
+                        <div class="bg-zinc-900/60 border border-zinc-800 p-6 sm:p-8 rounded-xl space-y-6">
+                            <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-widest font-mono border-b border-zinc-800 pb-3">// CONTACT INFO</h3>
+                            
+                            <div class="space-y-4">
+                                <!-- 邮箱 -->
+                                <a href="mailto:yx812xy@gmail.com" class="flex items-center space-x-4 p-3.5 rounded-lg bg-zinc-950/40 border border-zinc-800/40 hover:border-brand-green/40 hover:bg-zinc-950/80 transition-all duration-200 group">
+                                    <div class="h-10 w-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-brand-darkBg transition-all">
+                                        <i class="fa-solid fa-envelope text-sm"></i>
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <div class="text-[10px] font-mono text-zinc-500 uppercase">发送电子邮件</div>
+                                        <div class="text-white text-sm font-medium truncate">yx812xy@gmail.com</div>
+                                    </div>
+                                </a>
+
+                                <!-- 电话 -->
+                                <a href="tel:1919771035" class="flex items-center space-x-4 p-3.5 rounded-lg bg-zinc-950/40 border border-zinc-800/40 hover:border-brand-green/40 hover:bg-zinc-950/80 transition-all duration-200 group">
+                                    <div class="h-10 w-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-brand-darkBg transition-all">
+                                        <i class="fa-solid fa-phone text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] font-mono text-zinc-500 uppercase">拨打电话</div>
+                                        <div class="text-white text-sm font-medium">1919771035</div>
+                                    </div>
+                                </a>
+
+                                <!-- 地址 -->
+                                <div class="flex items-center space-x-4 p-3.5 rounded-lg bg-zinc-950/40 border border-zinc-800/40">
+                                    <div class="h-10 w-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                                        <i class="fa-solid fa-location-dot text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] font-mono text-zinc-500 uppercase">目前坐标</div>
+                                        <div class="text-white text-sm font-medium">江西省赣州市龙南市</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-8 border-t border-zinc-900/60 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+            <p class="text-xs text-zinc-500">&copy; 2026 钟瀚葳. All rights reserved.</p>
+            <p class="text-xs text-zinc-500 font-mono">
+                CRAFTED WITH PASSION FROM PIXELS TO PRINT
+            </p>
+        </footer>
+    </section>
+
+
+    <!-- 8. 作品详情弹窗 Modal (动态控制，无框架纯原生交互) -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/90 glass-blur opacity-0 pointer-events-none transition-opacity duration-300">
+        <!-- 弹窗主体 -->
+        <div class="bg-brand-cardBg border border-zinc-800 max-w-3xl w-11/12 max-h-[85vh] overflow-y-auto rounded-2xl relative shadow-2xl">
+            <!-- 关闭按钮 -->
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white bg-zinc-900 hover:bg-zinc-800 h-8 w-8 rounded-full flex items-center justify-center z-10 transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- 动态生成的内容插槽 -->
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+
+    <!-- 9. 原生交互 JS 逻辑 -->
+    <script>
+        // 色彩与材质实验室数据与逻辑
+        const labColors = [
+            {
+                name: "品牌荧光绿",
+                hex: "#00FF87",
+                cmyk: "C60 M0 Y100 K0",
+                rgb: "R0 G255 B135",
+                category: "特专色 ｜ Spot Color",
+                advice: "荧光绿在常规CMYK四色印刷中极易发灰暗淡。强烈建议使用 PANTONE 802C 专色油墨进行单版印刷，以100%还原荧光像素的亮烈质感。"
+            },
+            {
+                name: "超饱和重彩黑",
+                hex: "#121214",
+                cmyk: "C40 M30 Y30 K100",
+                rgb: "R18 G18 B20",
+                category: "复色黑 ｜ Rich Black",
+                advice: "严禁使用单黑 (K100) 印刷大面积黑色背景，否则极易透底、发灰。此复色黑配比（C40 M30 Y30 K100）会使黑色厚实、深邃且有天鹅绒质感。"
+            },
+            {
+                name: "高端拉丝金",
+                hex: "#D4AF37",
+                cmyk: "C20 M30 Y70 K10",
+                rgb: "R212 G175 B55",
+                category: "印后特种工艺",
+                advice: "常规色墨无法印刷出金属镜面光泽。建议在特种艺术纸上使用“热烫印黄金”（Gold Foil Stamping）后道工艺，实现浮雕金属反光质感。"
+            },
+            {
+                name: "高能电子青",
+                hex: "#06B6D4",
+                cmyk: "C80 M15 Y10 K0",
+                rgb: "R6 G182 B212",
+                category: "高精专色",
+                advice: "铜版纸还原度高，偏亮偏翠。若使用吸油墨性能强的特种纸或哑粉纸，网点易略微扩大，整体色调会有 3%~5% 的轻微偏暖，属正常介质误差。"
+            }
+        ];
+
+        const labPapers = {
+            'coated': {
+                name: "250g 高光双铜版纸",
+                texture: "滑顺平整、反射率高",
+                maxInk: "320%",
+                desc: "双面涂布高岭土，纸面极其光滑平整，对网点油墨吸收少。网点再现率极好，色彩极其鲜艳逼真。",
+                dpi: "300 DPI - 350 DPI",
+                tips: "适合高精详情画册、食品外卖亮光包装袋。支持最高320%总墨量，注意预防叠印不实。"
+            },
+            'matte': {
+                name: "200g 高雅哑粉纸",
+                texture: "哑光低反光、触感典雅",
+                maxInk: "280%",
+                desc: "纸面细腻但几乎无反射反光，墨层干燥略慢。印刷成品图案层次高级内敛，具有极佳的纸张质感。",
+                dpi: "300 DPI",
+                tips: "适合高端VI视觉白皮书、折页宣传册。总墨量建议控制在280%以内，避免油墨未干发生粘脏。"
+            },
+            'textured': {
+                name: "180g 绅士艺术特种纸",
+                texture: "纤维粗糙、有机凹凸触感",
+                maxInk: "220%",
+                desc: "具有极强的天然凹凸纤维质地。吸墨性极强，网点增益明显，深色重影处容易产生晕染发胀。",
+                dpi: "350 DPI (需要高线数制版)",
+                tips: "适合极奢餐饮菜单、名片、特种吊牌。由于吸油墨严重，建议设计时留出更多呼吸留白，总墨量严格限制在220%以下。"
+            }
+        };
+
+        let currentLabColorIdx = 0;
+        let currentLabPaperId = 'coated';
+
+        function selectLabColor(idx) {
+            currentLabColorIdx = idx;
+            const color = labColors[idx];
+            
+            // 更新按钮样式
+            for(let i=0; i<4; i++) {
+                const btn = document.getElementById('btn-col-' + i);
+                const dot = document.getElementById('dot-col-' + i);
+                if (i === idx) {
+                    btn.className = "p-3 rounded-xl border text-left transition-all duration-300 relative overflow-hidden group border-brand-green bg-zinc-900/50 shadow-glow-green";
+                    if (dot) dot.classList.remove('hidden');
+                } else {
+                    btn.className = "p-3 rounded-xl border text-left transition-all duration-300 relative overflow-hidden group border-zinc-800 bg-zinc-950/40 hover:border-zinc-700";
+                    if (dot) dot.classList.add('hidden');
+                }
+            }
+
+            // 更新详情
+            document.getElementById('lab-color-cat').innerText = color.category;
+            document.getElementById('lab-color-advice').innerText = color.advice;
+            document.getElementById('lab-color-cmyk').innerText = color.cmyk;
+            document.getElementById('lab-color-rgb').innerText = color.rgb;
+
+            // 更新仿真器背景辉光
+            document.getElementById('lab-sim-glow').style.backgroundColor = color.hex;
+            document.getElementById('lab-sim-text').style.color = color.hex;
+            
+            updateLabSimulators();
+        }
+
+        function selectLabPaper(id) {
+            currentLabPaperId = id;
+            const paper = labPapers[id];
+
+            // 更新按钮样式
+            const paperIds = ['coated', 'matte', 'textured'];
+            paperIds.forEach(pId => {
+                const btn = document.getElementById('btn-pap-' + pId);
+                const dot = document.getElementById('dot-pap-' + pId);
+                if (pId === id) {
+                    btn.className = "p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between relative overflow-hidden border-purple-500 bg-zinc-900/50 shadow-[0_0_15px_rgba(168,85,247,0.08)]";
+                    if (dot) dot.classList.remove('hidden');
+                } else {
+                    btn.className = "p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between relative overflow-hidden border-zinc-800 bg-zinc-950/40 hover:border-zinc-700";
+                    if (dot) dot.classList.add('hidden');
+                }
+            });
+
+            // 更新详情
+            document.getElementById('lab-pap-desc').innerText = paper.desc;
+            document.getElementById('lab-pap-dpi').innerText = paper.dpi;
+            document.getElementById('lab-pap-tips').innerText = paper.tips;
+            document.getElementById('lab-sim-papname').innerText = paper.name.split(" ")[1] || "铜版纸";
+
+            const maxInkNum = parseInt(paper.maxInk);
+            const warningIcon = document.getElementById('lab-pap-warning-icon');
+            if (maxInkNum < 250) {
+                warningIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-orange-400 animate-pulse"></i>';
+            } else {
+                warningIcon.innerHTML = '<i class="fa-solid fa-circle-check text-brand-green"></i>';
+            }
+
+            updateLabSimulators();
+        }
+
+        function updateLabSimulators() {
+            const dotGain = parseInt(document.getElementById('slider-dot-gain').value);
+            const dpi = parseInt(document.getElementById('slider-dpi').value);
+
+            // 更新滑块数值显示
+            document.getElementById('label-dot-gain').innerText = '+' + dotGain + '%';
+            document.getElementById('label-dpi').innerText = dpi + ' DPI';
+            
+            if (dpi < 200) {
+                document.getElementById('label-dpi').className = "font-mono text-orange-400 font-bold";
+            } else {
+                document.getElementById('label-dpi').className = "font-mono text-brand-green font-bold";
+            }
+
+            // 更新文本模糊与对比度滤镜，模拟物理质感
+            const simText = document.getElementById('lab-sim-text');
+            simText.style.filter = "blur(" + (dotGain * 0.08) + "px) contrast(" + (100 - dotGain * 0.5) + "%)";
+
+            // 更新状态评级
+            const alertBox = document.getElementById('lab-sim-alert');
+            const scoreBox = document.getElementById('lab-sim-score');
+
+            if (dpi >= 300 && dotGain <= 18) {
+                alertBox.innerHTML = '<span class="text-emerald-400 flex items-center gap-0.5"><i class="fa-solid fa-circle-check"></i> 细节呈现完美</span>';
+                scoreBox.innerText = 'Perfect ｜ 卓越还原度 98%';
+                scoreBox.className = 'text-lg font-extrabold text-white font-display text-emerald-400';
+            } else if (dpi >= 200 && dotGain <= 25) {
+                alertBox.innerHTML = '<span class="text-yellow-400 flex items-center gap-0.5"><i class="fa-solid fa-triangle-exclamation"></i> 材质中度偏色</span>';
+                scoreBox.innerText = 'Acceptable ｜ 合格还原度 82%';
+                scoreBox.className = 'text-lg font-extrabold text-white font-display text-yellow-400';
+            } else {
+                alertBox.innerHTML = '<span class="text-orange-400 flex items-center gap-0.5 animate-pulse"><i class="fa-solid fa-triangle-exclamation"></i> 边缘像素流失</span>';
+                scoreBox.innerText = 'Warning ｜ 细节流失风险';
+                scoreBox.className = 'text-lg font-extrabold text-white font-display text-orange-400 animate-pulse';
+            }
+        }
+
+        // 移动端菜单开关
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+            menuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            
+            // 切换图标样式
+            const icon = menuBtn.querySelector('i');
+            if(isExpanded) {
+                icon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+
+        // 导航栏滚动时背景加深
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-4', 'bg-brand-darkBg/95', 'shadow-lg');
+                navbar.classList.remove('py-0');
+            } else {
+                navbar.classList.remove('py-4', 'bg-brand-darkBg/95', 'shadow-lg');
+                navbar.classList.add('py-0');
+            }
+        });
+
+        // 交互逻辑：展示模式切换与图片加载错误备用方案
+        let showCssPortfolioMockups = false;
+        const brokenImages = {};
+
+        function togglePortfolioMockups(show) {
+            showCssPortfolioMockups = show;
+            
+            // 更新控制按钮样式
+            const btnPhoto = document.getElementById('btn-mock-photo');
+            const btnCss = document.getElementById('btn-mock-css');
+            
+            if (show) {
+                btnPhoto.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 flex items-center gap-1.5 text-zinc-400 hover:text-white";
+                btnCss.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 flex items-center gap-1.5 bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-[0_0_12px_rgba(168,85,247,0.3)]";
+            } else {
+                btnPhoto.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 flex items-center gap-1.5 bg-gradient-to-r from-brand-green to-cyan-500 text-brand-darkBg shadow-glow-green";
+                btnCss.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 flex items-center gap-1.5 text-zinc-400 hover:text-white";
+            }
+            
+            // 更新所有卡片
+            for (let i = 1; i <= 4; i++) {
+                updateCardDisplay(i);
+            }
+        }
+
+        function handleProjectImgError(id) {
+            brokenImages[id] = true;
+            updateCardDisplay(id);
+        }
+
+        function updateCardDisplay(id) {
+            const imgEl = document.getElementById('project-img-' + id);
+            const cssEl = document.getElementById('project-css-' + id);
+            if (!imgEl || !cssEl) return;
+            
+            const useCss = showCssPortfolioMockups || brokenImages[id];
+            if (useCss) {
+                imgEl.classList.add('hidden');
+                cssEl.classList.remove('hidden');
+            } else {
+                imgEl.classList.remove('hidden');
+                cssEl.classList.add('hidden');
+            }
+        }
+
+        function getProjectCSSPlaceholderHTML(id) {
+            const el = document.getElementById('project-css-' + id);
+            if (!el) return '';
+            // 复制并移出隐藏状态与唯一 id，使其可在模态框中自由呈现
+            let copy = el.cloneNode(true);
+            copy.classList.remove('hidden');
+            copy.removeAttribute('id');
+            return copy.outerHTML;
+        }
+
+        // 作品数据
+        const projectsData = {
+            1: {
+                name: "餐饮品牌 VI 与包装设计",
+                category: "品牌包装",
+                image: "https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/restaurant_vi_brand_1782279123385.jpg",
+                fullDesc: "深度定制年轻化餐饮品牌VI视觉。优化原LOGO复杂笔画，确立高饱和荧光绿与曜石黑的现代视觉色系。完成了包含外卖汤碗、保温袋、杯套、封口贴纸等15种不同介质的环保包装设计，产出全套CMYK标准值与印刷特种纸白皮书，直接对接印刷厂，实现精装工艺落地。",
+                metrics: "15款外卖耗材完美量产",
+                tags: ["品牌设计","包装设计","印刷对接","VI规范"]
+            },
+            2: {
+                name: "轻量化智能修图小程序 UI/UX 设计",
+                category: "UI/UX 设计",
+                image: "https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/mobile_uiux_program_1782279139802.jpg",
+                fullDesc: "面向零基础用户的修图小程序。通过用户操作热力图分析，重构滑动条和功能卡片布局，将所有高频编辑滑块下沉至单手大拇指黄金操控区（Hot Zone）。极简的信息架构实现“导入、一键精修、一键保存”三步无感流转，易用性满意度提升45%。",
+                metrics: "核心功能3步直达",
+                tags: ["UI/UX","小程序规范","单手交互","原型设计"]
+            },
+            3: {
+                name: "高转化电商视觉设计展示",
+                category: "电商美工",
+                image: "https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/ecommerce_visual_banner_1782279153617.jpg",
+                fullDesc: "主导美妆、3C数码等多品类爆款商品详情页重构。运用精湛的数字修图（Retouching）与光影塑造，重组信息卖点金字塔。通过A/B测试主图布局、微调利益点气泡位置、高对比度荧光标识，实测为店铺核心单品提升了15.8%的自然搜索点击率。",
+                metrics: "点击转化率提升 15%+",
+                tags: ["电商美工","详情页重构","高转化主图","数字修图"]
+            },
+            4: {
+                name: "商业广告与线下物料成品落地",
+                category: "平面广告",
+                image: "https://ais-dev-vkeu32m4jqkbpfpdxpwoqr-530963500969.asia-northeast1.run.app/src/assets/images/outdoor_print_billboard_1782279167516.jpg",
+                fullDesc: "全程参与30+商业画册与商圈节日展陈落地项目。精通各种纸张特性（如哑粉纸、铜版纸、特种特滑艺术纸）、克重搭配和印后工艺（烫金/银、激凸、UV、局部模切）。精确执行陷印（Trapping）、出血和CMYK色彩校正，达到色差值小于±3%的极致标准。",
+                metrics: "30+ 商业项目100%还原落地",
+                tags: ["印刷物料","户外广告","CMYK色彩管理","后期工艺"]
+            }
+        };
+
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        // 打开弹窗
+        function openProjectModal(id) {
+            const project = projectsData[id];
+            if (!project) return;
+
+            const tagsHTML = project.tags.map(t => `<span class="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-mono">${t}</span>`).join('');
+
+            const isCss = showCssPortfolioMockups || brokenImages[id];
+            let mediaHTML = '';
+            if (isCss) {
+                mediaHTML = `<div class="relative aspect-video w-full overflow-hidden bg-zinc-950">${getProjectCSSPlaceholderHTML(id)}</div>`;
+            } else {
+                mediaHTML = `
+                    <div class="relative aspect-video w-full overflow-hidden bg-zinc-950">
+                        <img src="${project.image}" alt="${project.name}" class="object-cover w-full h-full" referrerPolicy="no-referrer">
+                    </div>`;
+            }
+
+            modalContent.innerHTML = `
+                ${mediaHTML}
+                <div class="p-6 sm:p-10 space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-zinc-800/80 pb-5">
+                        <div>
+                            <span class="text-xs font-mono text-brand-green uppercase tracking-widest block mb-1">${project.category}</span>
+                            <h3 class="text-2xl font-extrabold text-white font-display">${project.name}</h3>
+                        </div>
+                        <div class="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-center flex-shrink-0">
+                            <div class="text-[10px] font-mono text-zinc-500 uppercase">核心成果 / KPI</div>
+                            <div class="text-sm font-extrabold text-brand-green font-display mt-0.5">${project.metrics}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-mono text-zinc-500 uppercase tracking-widest">项目设计深度剖析 / PROFILE</h4>
+                        <p class="text-zinc-300 text-sm leading-relaxed sm:text-base font-light whitespace-pre-line">${project.fullDesc}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-zinc-800/60 flex flex-wrap gap-2">
+                        ${tagsHTML}
+                    </div>
+                </div>
+            `;
+
+            // 显示弹窗
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            document.body.style.overflow = 'hidden'; // 阻止背景滚动
+        }
+
+        // 关闭弹窗
+        function closeProjectModal() {
+            modal.classList.add('pointer-events-none', 'opacity-0');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        }
+
+        // 点击背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeProjectModal();
+            }
+        });
+
+        // ESC按键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+    </script>
+</body>
+</html>
